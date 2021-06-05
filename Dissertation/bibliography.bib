@@ -1,0 +1,127 @@
+@ARTICLE{Siebrits_Peirce_2002,
+	author = "E. Siebrits and A. P. Peirce",
+	title = "An efficient multi-layer planar 3D fracture growth algorithm using a fixed mesh approach",
+	year = "2002",
+	language = "english",
+	journal = "Int. J. Numer. Meth. Engng",
+	volume = "53",
+	pages = "691--717"
+}
+
+@article{Peirce2001TheSF,
+  title={The scaled flexibility matrix method for the efficient solution of boundary value problems in 2D and 3D layered elastic media},
+  author={A. Peirce and E. Siebrits},
+  journal={Computer Methods in Applied Mechanics and Engineering},
+  year={2001},
+  volume={190},
+  pages={5935-5956}
+}
+
+@article{Adachi2007ComputerSO,
+  title={Computer simulation of hydraulic fractures},
+  author={J. Adachi and E. Siebrits and A. Peirce and J. Desroches},
+  journal={International Journal of Rock Mechanics and Mining Sciences},
+  year={2007},
+  volume={44},
+  pages={739-757}
+}
+
+@article{Gordeliy2013CouplingSF,
+  title={Coupling schemes for modeling hydraulic fracture propagation using the XFEM},
+  author={Elizaveta Gordeliy and A. Peirce},
+  journal={Computer Methods in Applied Mechanics and Engineering},
+  year={2013},
+  volume={253},
+  pages={305-322}
+}
+
+@article{Peirce2001UniformAA,
+  title={Uniform asymptotic approximations for accurate modeling of cracks in layered elastic media*},
+  author={A. Peirce and E. Siebrits},
+  journal={International Journal of Fracture},
+  year={2001},
+  volume={110},
+  pages={205-239}
+}
+
+@article{DONTSOV2021108144,
+title = {Representation of high resolution rock properties on a coarser grid for hydraulic fracture modeling},
+journal = {Journal of Petroleum Science and Engineering},
+volume = {198},
+pages = {108144},
+year = {2021},
+issn = {0920-4105},
+doi = {https://doi.org/10.1016/j.petrol.2020.108144},
+url = {https://www.sciencedirect.com/science/article/pii/S0920410520311980},
+author = {Egor Dontsov and Roberto Suarez-Rivera},
+keywords = {Hydraulic fracturing, Homogenization, Upscaling, High resolution properties},
+abstract = {This study presents a homogenization procedure for the high resolution rock properties that are used as an input data for hydraulic fracture simulations. In particular, the high resolution data for fracture toughness (both vertical and horizontal), elastic constants, leak-off coefficient, and stress are suitably upscaled for a given element size, so that the small scale variations within this element are captured implicitly. Homogenization of the elastic properties is performed assuming that each individual layer is transversely isotropic and is based on Backus averaging. Fracture energy is used to homogenize the fracture toughness and to account for the contrast of elastic properties on the fracture height containment. The average energy is used in the horizontal direction and the maximum energy is used in the vertical direction. To preserve the total force acting on the element, the weighted average is used for stress homogenization. In addition, a correction to the vertical fracture toughness that is caused by the difference between the high resolution stress and the homogenized stress is introduced. Finally, a weighted average is used to homogenize leak-off. A series of numerical examples that consider synthetic data with periodic variation of parameters is used to validate the homogenization procedure. One of the most important implications of using the homogenization is an increase of the apparent vertical fracture toughness (that represents small scale property variations), which can be of the same order or even larger than the intrinsic rock toughness. Thus, high resolution property variations have a potential to considerably alter fracture geometry and can lead to a more pronounced fracture height containment.}
+}
+
+@article{dispalecement_discontinuty_Crouch1983,
+  title={Boundary element methods in solid mechanics},
+  author={Crouch, Steven L and Starfield, Antony M and Rizzo, FJ},
+  journal={Journal of Applied Mechanics},
+  volume={50},
+  pages={704},
+  year={1983}
+}
+
+@Article{Linkov1992,
+  author={Linkov, Alexander and Filippov, Nikolay},
+  title={Difference equations approach to the analysis of layered systems},
+  journal={Meccanica},
+  year={1992},
+  month={Dec},
+  day={01},
+  volume={26},
+  number={4},
+  pages={195-209},
+  abstract={The analysis of chain-like structures is tackled on the basis of difference equations. The advantages of such an approach are outlined. Difference equations for layered systems are derived both in terms of tractions and displacements. Interconnections with other methods are stated. Detailed analysis is given for the case when solution for a single layer is presented by Fourier series (integrals). Practical conclusions are driven at.},
+  issn={1572-9648},
+  doi={10.1007/BF00430937},
+  url={https://doi.org/10.1007/BF00430937}
+}
+
+%ILSA
+@article{Peir2008,
+	author={A. Peirce and E. Detournay},
+	title={An Implicit Level Set Method for Modeling Hydraulically Driven Fractures},
+	journal={Comput. Methods Appl. Mech. Engrg.},
+	year={2008},
+	volume={197},
+	pages={2858--2885}
+}
+
+@article{DONTSOV201753,
+	abstract = {This study uses an Implicit Level Set Algorithm (ILSA) to model the propagation of planar hydraulic fractures in situations when their progress is determined by an interplay of fluid viscosity, rock fracture toughness, and fluid leak-off into the formation. One of the key features of our approach is the use of the three-process tip asymptotic solution both as a propagation condition and to capture the multiscale behavior in a weak sense. Using this special tip asymptote is necessary because the validity region of the classical square root fracture opening solution (stemming from linear elastic fracture mechanics) is often limited to a small zone near the fracture tip, which can only be captured by a very fine mesh. In addition, this validity zone depends on the velocity of fracture propagation, so that slow and fast portions of the fracture front may experience different near-tip behavior. The multiscale tip asymptotic solution, on the other hand, has an increased validity region, which makes it possible to capture the near-tip multiscale behavior on a coarse mesh and yields a computationally efficient algorithm. The presence of leak-off also complicates the model considerably as it involves a delay term containing the trigger time history, which depends on the earlier fracture front positions. Moreover, the leak-off from tip elements in which the fracture front speed changes significantly requires special treatment. This three-process asymptotic solution is used to solve the fully coupled integro-delay-PDE model for a propagating planar hydraulic fracture by using a level set algorithm in conjunction with the tip asymptotic solution to locate the moving fracture front and to capture multiscale behavior. Firstly, the developed algorithm is validated against a reference solution for an axisymmetric hydraulic fracture. Secondly, a set of numerical examples involving three stress layers is presented to illustrate the variation of the multiscale near-tip behavior along the fracture perimeter and the need to use the multiscale asymptotic solution in a hydraulic fracturing simulator.},
+	author = {E.V. Dontsov and A.P. Peirce},
+	doi = {https://doi.org/10.1016/j.cma.2016.09.017},
+	issn = {0045-7825},
+	journal = {Computer Methods in Applied Mechanics and Engineering},
+	keywords = {Hydraulic fracture, Level set methods, Multi-scale phenomena, Stress jumps, Leak-off},
+	pages = {53-84},
+	title = {A multiscale Implicit Level Set Algorithm (ILSA) to model hydraulic fracture propagation incorporating combined viscous, toughness, and leak-off asymptotics},
+	url = {https://www.sciencedirect.com/science/article/pii/S0045782516305813},
+	volume = {313},
+	year = {2017},
+	Bdsk-Url-1 = {https://www.sciencedirect.com/science/article/pii/S0045782516305813},
+	Bdsk-Url-2 = {https://doi.org/10.1016/j.cma.2016.09.017}}
+
+%Carter leak-off
+@inproceedings{Cart1957,
+	author = {E.D. Carter},
+	booktitle = {Howard GC, Fast CR, editors. Drilling and production practices},
+	title = {Optimum fluid characteristics for fracture extension},
+	pages = {261--270},
+	year = {1957},
+}
+
+@inproceedings{gu2006,
+  author = {Gu, Hongren and Siebrits, Ed},
+  year = {2006},
+  month = {12},
+  pages = {},
+  title = {Effect of Formation Modulus Contrast on Hydraulic Fracture Height Containment},
+  doi = {10.2523/103822-MS}
+}

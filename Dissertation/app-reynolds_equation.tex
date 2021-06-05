@@ -1,0 +1,52 @@
+\chapter{Дискретизация уравнения Рейнольдса}
+\label{section:discrete_reynolds}
+\begin{align}
+    & \pd{w}{t} + \bigtriangledown \cdot q + \frac{2C_L}{\sqrt{t-t_0(x,\, y)}}  = Q_0 \delta(x) \\
+    & q  = -\frac{w^3}{\mu'} \bigtriangledown p \\
+    & p-\sigma_h(y)  = -\frac{E}{8\pi (1-\nu^2)}\iint\limits_{S(t)}\frac{w}{((x-x')^2 + (y-y')^2)^\frac{3}{2}} \dif x' \dif y' \\
+\end{align}
+
+Сделаем обезразмеривание величин
+\begin{equation}
+    \begin{array}{rclrclrclrclrcl}
+        t' & = & \frac{t}{T}, &
+        x' & = & \frac{x}{L}, &
+        y' & = & \frac{y}{L}, &
+        w' & = & \frac{w}{W}, &
+        p' & = & \frac{p}{P}, \\
+        C' & = & \frac{C_L}{C_\text{dim}}, &
+        q' & = & \frac{q}{Q}, &
+        Q_0' & = & \frac{Q_0}{Q_\text{dim}}, &
+        E' & = & \frac{E}{E_\text{dim}}, &
+        \mu'' & = & \frac{\mu'}{\mu}
+    \end{array}
+\end{equation}
+Тогда получаем следующие соотношения:
+\begin{align}
+    & \frac{W}{T}\pd{w'}{t'} + \frac{Q}{L}\bigtriangledown' \cdot q' + \frac{C_\text{dim}}{T^\frac{1}{2}}\frac{2C'}{\sqrt{t'-t_0'(x',\, y')}}  = \frac{Q_\text{dim}}{L^2}Q_0' \delta(x') \\
+    & Q q' = -\frac{W^3 P}{\mu L}\frac{w'^3}{\mu''} \bigtriangledown' p' \\
+    & P(p'-\sigma_h'(y))  = -\frac{E_\text{dim}W}{L}\frac{E}{8\pi (1-\nu^2)}\iint\limits_{S'(t')}\frac{w'}{((x-x')^2 + (y-y')^2)^\frac{3}{2}} \dif x' \dif y' \\
+\end{align}
+
+Откуда получаем
+\begin{align}
+    & \frac{W}{T} = \frac{Q}{L} =  \frac{C_\text{dim}}{T^\frac{1}{2}} = \frac{Q_\text{dim}}{L^2} \\
+    & Q = \frac{W^3 P}{\mu L} \\
+    & P = \frac{E_\text{dim}W}{L}
+\end{align}
+
+Окончательно
+\begin{equation}
+    \begin{array}{rclrclrcl}
+        P & = & \frac{\mu L^2}{TW^2} & C_\text{dim} & = & WT^{-\frac{1}{2}} \\
+        Q_\text{dim} & = & \frac{WL^2}{T} & E_\text{dim} & = & \frac{\mu L^3}{TW^3} \\
+    \end{array}
+\end{equation}
+
+Если положить, что $L = T = \mu = 1$ и $W = 10^{-3}$, то получаем
+\begin{equation}
+    \begin{array}{rclrclrcl}
+        P & = & 10^6 & C_\text{dim} & = & 10^{-3} \\
+        Q_\text{dim} & = & 10^{-3} & E_\text{dim} & = & 10^9 \\
+    \end{array}
+\end{equation}

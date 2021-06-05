@@ -56,21 +56,21 @@
 \input{common/renames}
 
 %%% Структура диссертации (ГОСТ Р 7.0.11-2011, 4)
-\include{Dissertation/title}           % Титульный лист
+\include{Dissertation/0-title}           % Титульный лист
 \include{Dissertation/contents}        % Оглавление
 \ifnumequal{\value{contnumfig}}{1}{}{\counterwithout{figure}{chapter}}
 \ifnumequal{\value{contnumtab}}{1}{}{\counterwithout{table}{chapter}}
-\include{Dissertation/introduction}    % Введение
+\include{Dissertation/0-intro.tex}    % Введение
 \ifnumequal{\value{contnumfig}}{1}{\counterwithout{figure}{chapter}
 }{\counterwithin{figure}{chapter}}
 \ifnumequal{\value{contnumtab}}{1}{\counterwithout{table}{chapter}
 }{\counterwithin{table}{chapter}}
-\include{Dissertation/part1}           % Глава 1
-\include{Dissertation/part2}           % Глава 2
-\include{Dissertation/part3}           % Глава 3
-\include{Dissertation/conclusion}      % Заключение
-\include{Dissertation/acronyms}        % Список сокращений и условных обозначений
-\include{Dissertation/dictionary}      % Словарь терминов
+\include{Dissertation/1-problem_formulation.tex}           % Глава 1
+\include{Dissertation/2-layered_elasticity.tex}           % Глава 2
+\include{Dissertation/3-algorithm_verification.tex}           % Глава 3
+\include{Dissertation/4-conclusion.tex}      % Заключение
+% \include{Dissertation/acronyms}        % Список сокращений и условных обозначений
+% \include{Dissertation/dictionary}      % Словарь терминов
 \include{Dissertation/references}      % Список литературы
 \include{Dissertation/lists}           % Списки таблиц и изображений (иллюстративный материал)
 
@@ -83,7 +83,8 @@
 \renewcommand*{\afterchapternum}{\par\nobreak\vskip \midchapskip}
 \renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами нумеровались
 
-\include{Dissertation/appendix}        % Приложения
+\include{Dissertation/app-coupled_systems.tex}
+\include{Dissertation/app-fourier_transform.tex}
 
 \setcounter{totalappendix}{\value{chapter}} % Подсчёт количества приложений
 

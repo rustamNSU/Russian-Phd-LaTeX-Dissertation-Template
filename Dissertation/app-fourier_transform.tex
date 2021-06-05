@@ -1,0 +1,20 @@
+\chapter{Fourier transform}
+\label{ch:fourier_transform}
+
+В работе используется следующее двумерное преобразование Фурье:
+\begin{equation}
+    \label{eq:fourier_transform_2d}
+    \hat{f}(m,n) = \int\limits_{-\infty}^{\infty}  \int\limits_{-\infty}^{\infty} f(x,z) e^{-i(mx+nz)} \dif x \dif z,
+\end{equation}
+и обратное преобразование Фурье
+\begin{equation}
+    \label{eq:inverse_fourier_transform_2d}
+    f(x,y) = \frac{1}{(2\pi)^2}\int\limits_{-\infty}^{\infty}  \int\limits_{-\infty}^{\infty} \hat{f}(m,n) e^{i(mx+nz)} \dif m \dif n
+\end{equation}
+
+Для численного построения матрицы упругости используем дискретное преобразование Фурье
+\begin{align}
+    \label{eq:DFT}
+    \hat{f}(m, n) &= \sum_{i=0}^{N_x-1}\sum_{j=0}^{N_y-1} f(i,j)e^{-2\pi i \left(\frac{mi}{N_x}+\frac{nj}{N_y} \right)} \\
+    f(i,j) &= \frac{1}{N_x N_y} \sum_{m=0}^{N_x-1}\sum_{n=0}^{N_y-1} \hat{f}(m, n)e^{2\pi i \left(\frac{mi}{N_x}+\frac{nj}{N_y} \right)}
+\end{align}

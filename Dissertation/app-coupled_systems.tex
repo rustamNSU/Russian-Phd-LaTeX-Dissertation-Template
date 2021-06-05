@@ -1,0 +1,85 @@
+\chapter{Связанные t- и s- системы}
+\label{app:coupled_systems}
+
+\section*{Решение t-системы}
+
+Коэффициенты в t-системе \eqref{eq:coupled_t-system} имеют вид
+\begin{equation}
+    \label{eq:coefficients_t-system}
+    \begin{split}
+        A^{i}_t &= \frac{2}{f^{i}}\text{cosech}(kd^{i}),\\
+        B^{i}_t &= \frac{2}{f^{i+1}}\text{cosech}(kd^{i+1}),\\
+        C^{i}_t &= -\frac{2}{f^{i+1}}\coth(kd^{i+1}) - \frac{2}{f^{i}}\coth(kd^{i}),\\
+        D^{i}_t &= \Delta \hat{u}^{i}_{t} + \frac{2}{f^{i+1}}\coth(kd^{i+1})\Delta\hat{\tau}_{t}^{i} 
+        - \frac{2}{f^{i}}\text{cosech}(kd^{i})\Delta\hat{\tau}_{t}^{i-1},
+    \end{split}
+\end{equation}
+где $d^i$ -- толщина $i$-го слоя, $\Delta \hat{u}^{i}_{t}$ и $\Delta\hat{\tau}_{t}^{i}$ значения скачков через границы слоев, связанных с введением дополнительной границы \eqref{eq:jump_condition}.
+
+Смещение $\hat{u}^{i}_{t}$ на верхней границе $i$-го слоя можно найти, как
+\begin{equation}
+    \label{eq:upper_displacement_t}
+    \hat{u}^{i}_{t} = \frac{2}{f^{i}}\coth(kd^{i})\hat{\tau}^{i}_{t} - \frac{2}{f^{i}}\text{cosech}(kd^{i}) (\hat{\tau}^{i-1}_{t} + \Delta\hat{\tau}^{i-1}_{t}).
+\end{equation}
+Находя $\hat\tau_t^i$ из \eqref{eq:coupled_t-system} и $\hat{u}^i_t$ из \eqref{eq:upper_displacement_t}, получаем вектор $\hat T_t^i$.
+
+
+\section*{Решение s-системы}
+
+Матрицы в s-системе \eqref{eq:coupled_s-system} задаются как
+\begin{equation}
+    \label{eq:coefficients_s-system}
+    \begin{split}
+        \textbf{A}^{i} & = -R^{i}_{tb},\\
+        \textbf{C}^{i} & = R^{i+1}_{bb}-R^{i}_{tt},\\
+        \textbf{B}^{i} & = R^{i+1}_{bt},\\
+        \textbf{D}^{i} & = \Delta u^{i}-R^{i+1}_{bb}\Delta p^{i}+R^{i}_{tb}\Delta p^{i-1},
+    \end{split}
+\end{equation}
+где используются следующие соотношения:
+\begin{equation}
+    \label{eq:R_matrix}
+    \begin{split}
+        p^i & = \left[\begin{array}{c}
+            \hat{\sigma}_{yy}^{i} \\
+            \hat{\tau}_s^{i}
+        \end{array}\right],\\
+        R_{tt} & = \frac{1}{D} \left[\begin{array}{cc}
+            - l_{5}(th + k \cdot d \cdot se^{2}) & - (l_{4}\cdot th^{2} + f\cdot k^{2} \cdot d^{2} \cdot se^{2})\\
+            - (l_{4}\cdot th^{2} + f\cdot k^{2} \cdot d^{2} \cdot se^{2})  & - l_{5}(th - k \cdot d \cdot se^{2}) 
+        \end{array}\right],\\
+        R_{bb} & = \frac{1}{D} \left[\begin{array}{cc}
+            l_{5}(th + k \cdot d \cdot se^{2}) & - (l_{4}\cdot th^{2} + f\cdot k^{2} \cdot d^{2} \cdot se^{2}) \\
+            - (l_{4}\cdot th^{2} + f\cdot k^{2} \cdot d^{2} \cdot se^{2})  & l_{5}(th - k \cdot d \cdot se^{2})
+        \end{array}\right],\\
+        R_{bt} & = \frac{1}{D} \left[\begin{array}{cc}
+            - (th + k \cdot d)\cdot se & - k \cdot d \cdot th \cdot se \\
+            k \cdot d \cdot th \cdot se & - (th - k \cdot d)\cdot se 
+        \end{array}\right],\\
+        R_{tb} & = \frac{1}{D} \left[\begin{array}{cc}
+            (th + k \cdot d)\cdot se & - k \cdot d \cdot th \cdot se \\
+            k \cdot d \cdot th \cdot se & (th - k \cdot d)\cdot se  
+        \end{array}\right].\\
+    \end{split}
+\end{equation}
+Для удобства используем следующие обозначения: $th = \tanh(kd)$, $se = \text{sech}(kd)$ и $D = f^{2}[(1 \!+\! k^{2} d^{2}) se^{2} \!-\! 1]$, где $d$ -- толщина слоя.
+
+Смещения $\hat{u}^{i}_{y}$ и $\hat{u}^{i}_{s}$ на верхней границе $i$-го слоя можно найти, как
+\begin{equation}
+    \begin{bmatrix}
+        \hat{u}^{i}_{y} \\
+        \hat{u}^{i}_{s}
+    \end{bmatrix}
+    =
+    R_{tt}^{i}
+    \begin{bmatrix}
+        \hat{\sigma}^{i}_{yy} \\
+        \hat{\tau}^{i}_{s}
+    \end{bmatrix}
+    +
+    R_{tb}^{i}
+    \begin{bmatrix}
+        \hat{\sigma}^{i-1}_{yy} + \Delta\hat{\sigma}^{i-1}_{yy} \\
+        \hat{\tau}^{i-1}_{s} + \Delta\hat{\tau}^{i-1}_{s}
+    \end{bmatrix}.
+\end{equation}
