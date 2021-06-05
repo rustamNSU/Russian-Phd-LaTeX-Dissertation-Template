@@ -1,32 +1,44 @@
 \begin{frame}
-    \frametitle{Ответы на замечания ведущей организации НИИ~<<Рога~и~копыта>>}
-    \begin{itemize}
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-    \end{itemize}
+    \frametitle{Условие скачка смещений и напряжений на границе раздела псевдослоя}
+    \begin{equation*}
+        \left[ \hat{T} \right] = 
+        \left[ \begin{array}{c} 
+            0 \\ \frac{\Delta u(b^2 - a^2)}{a} \\ \frac{\Delta ub}{a} \\ 0 \\ 0 \\ 0 
+        \end{array} \right]
+        +
+        \frac{m^2}{m^2+n^2} \left[ \begin{array}{c} 
+            0 \\ \Delta u(a-b) \\ 0 \\ 0 \\ 0 \\ 0 
+        \end{array} \right]
+        +
+        \frac{mn}{m^2+n^2} \left[ \begin{array}{c} 
+            0 \\ 0 \\ 0 \\ 0 \\ \Delta u(a-b) \\ 0 
+        \end{array} \right].
+    \end{equation*}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Ответы на замечания оф. оппонента Иванова\,И.\,И}
-    \begin{itemize}
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-    \end{itemize}
+    \frametitle{Матрицы $Z_s$ и $Z_t$}
+    \begin{equation}
+        \label{eq:FourierSeparateA}
+        \begin{split}
+        Z_s & = 
+        \left[
+        \begin{array}{cccc}
+            -fe^{-ky} & (l_4-fky)e^{-ky} & fe^{ky} & (l_4+fky)e^{ky} \\
+            -fe^{-ky} & (l_5-fky)e^{-ky} & -fe^{ky} & -(l_5+fky)e^{ky} \\
+            e^{-ky} & kye^{-ky} & e^{ky} & kye^{ky} \\
+            e^{-ky} & (ky-l_2)e^{-ky} & -e^{ky} & -(ky+l_2)e^{ky} \\
+        \end{array}
+        \right],
+        \\
+        Z_t & = 
+        \left[
+        \begin{array}{cc}
+            -\frac{f}{2}e^{-ky} & \frac{f}{2}e^{ky} \\
+            e^{-ky} & e^{ky}
+        \end{array}
+        \right].
+        \end{split}
+    \end{equation}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Ответы на замечания Петрова\,П.\,П}
-    \begin{itemize}
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-        \item Замечание -- ответ
-    \end{itemize}
-\end{frame}
