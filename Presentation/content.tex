@@ -177,6 +177,7 @@
 
 \begin{frame}
     \frametitle{Спектральные (свободные) коэффициенты}
+    Система \eqref{eq:FT_system} является ОДУ и решение зависит от 6 свободных коэффициентов
     \begin{equation}
         \label{eq:fourier_solution}
         \left[
@@ -206,6 +207,108 @@
         \hat{T}_s = \left[\hat{\sigma}_{yy}/k \quad \hat{\tau}_s/k \quad \hat{u}_y \quad \hat{u}_s \right]^T, \qquad 
         \hat{T}_t = \left[ \hat{\tau}_t/k \quad  \hat{u}_t \right]^T.
     \end{equation}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Спектральные (свободные) коэффициенты}
+    Связь между спектральными коэффициентами и значениями смещений и напряжений на границе слоя
+    \begin{equation*}
+        \left[
+        \begin{array}{c}
+        A^{j}_{1}(k) \\
+        A^{j}_{2}(k)\\
+        A^{j}_{3}(k) \\
+        A^{j}_{4}(k)
+        \end{array}
+        \right]
+        = \frac{1}{2l^j_5}
+        \left[
+        \begin{array}{cccc}
+            -l^j_2 & 0 & l^j_5 & -l^j_4 \\
+            -1 & 1 & f^j & -f^j \\
+            l^j_2 & 0 & l^j_5 & l^j_4 \\
+            -1 & -1 & -f^j & -f^j
+        \end{array}
+        \right]
+        \left[
+        \begin{array}{c}
+        \hat{\sigma}^{j}_{yy}(y=y_j)/k \\
+        \hat{\tau}^{j}_{s}(y=y_j)/k\\
+        \hat{u}^{j}_{y}(y=y_j) \\
+        \hat{u}^{j}_{s}(y=y_j) 
+        \end{array}
+        \right],
+    \end{equation*}
+
+    \begin{equation*}
+        \left[
+        \begin{array}{c}
+            A^{j}_{5}(k) \\
+            A^{j}_{6}(k)
+        \end{array}
+        \right]
+        = \frac{1}{2l^j_5}
+        \left[
+        \begin{array}{cc}
+            -\frac{1}{f^j} & \frac{1}{2} \\
+            \frac{1}{f^j} & \frac{1}{2}
+        \end{array}
+        \right]
+        \left[
+        \begin{array}{c}
+        \hat{\tau}^{j}_{t}(y=y_j)/k\\
+        \hat{u}^{j}_{t}(y=y_j) 
+        \end{array}
+        \right].
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Связанные системы для граничных значений}
+    Из этих соотношений можно составить уравнения для определения компонент вектора смещения и напряжений на границе раздела слоев
+    \begin{equation}
+        \label{eq:coupled_t-system}
+        A_t^i \hat{\tau}_t^{i-1} + C_t^i \hat{\tau}_t^{i} + B_t^i \hat{\tau}_t^{i+1} = D_t^i,
+    \end{equation}
+    для t-системы и 
+    \begin{equation}
+        \label{eq:coupled_s-system}
+        \textbf{A}_s^i \left[
+            \begin{array}{c}
+                \hat{\sigma}_{yy}^{i-1} \\
+                \hat{\tau}_s^{i-1}
+            \end{array}\right] +
+        \textbf{C}_s^i \left[
+            \begin{array}{c}
+                \hat{\sigma}_{yy}^{i} \\
+                \hat{\tau}_s^{i}
+            \end{array}\right] + 
+        \textbf{B}_s^i \left[
+            \begin{array}{c}
+                \hat{\sigma}_{yy}^{i+1} \\
+                \hat{\tau}_s^{i+1}
+            \end{array}\right]
+        = \textbf{D}_s^i,
+    \end{equation}
+    для s-системы.
+\end{frame}
+
+\begin{frame}
+    \frametitle{}
+    Ядро $G(x,y;x',y')$ интегрального соотношения~\eqref{eq:elasticity_equation} для слоистой среды
+    \begin{equation}
+        G(x,y;x',y') = G_\text{hom}(x,y;x',y') + G'(x,y;x',y'),
+    \end{equation} 
+    где $G_\text{hom}(x,y;x',y')$ получается из \eqref{eq:elasticity_kernel} с учетом $E'=E'(y)$. Окончательно
+    \begin{multline}
+        \label{eq:fourier_sigmazz}
+        \hat{\sigma}^j_{zz}(y)/k = f\frac{n^2}{k^2}e^{-ky}A^j_1(k)
+        - \left(l_6\frac{n^2}{k^2}+l_7\frac{m^2}{k^2}-f\frac{n^2}{k^2}ky \right)e^{-ky}A^j_2(k) - \\
+        - f\frac{n^2}{k^2}e^{ky}A^j_3(k)
+        - \left(l_6\frac{n^2}{k^2}+l_7\frac{m^2}{k^2}+f\frac{n^2}{k^2}ky \right)e^{ky}A^j_4(k) - \\
+        - f\frac{mn}{k^2}e^{-ky}A^j_5(k)
+        - f\frac{mn}{k^2}e^{ky}A^j_6(k).
+    \end{multline}
 \end{frame}
 
 
