@@ -1,5 +1,5 @@
 \chapter{Матрица упругости для слоистой среды}
-\label{ch:layered_elasticity}
+\label{sec:layered_elasticity}
 
 В случае однородной изотропной среды коэффициенты матрицы упругости $C_{i,j;k,l}$ могут быть найдены аналитическим способом из \eqref{eq:elasticity_kernel} путем интегрирования ядра $G(x,y;x',y')$ на элементе $\mathcal{A}_{i,j}$ \cite{Peir2008}
 \begin{equation}
@@ -25,12 +25,11 @@
     \partial_{y} T = \mathbb{A}T + F,
 \end{equation}
 где
-
 \begin{equation}
     \label{eq:T}
     \begin{split}
-        T &= \left[\sigma_{yy} \; \sigma_{xy} \; \sigma_{yz} \; u_{y} \; u_{x} \; u_{z}\right]^T, \\
-        F &= \left[-f_y \; -f_x \; -f_z \; 0 \; 0 \; 0\right]^T,
+        T &= \left[\sigma_{yy} , \quad \sigma_{xy} , \quad \sigma_{yz} , \quad u_{y} , \quad u_{x} , \quad u_{z}\right]^T, \\
+        F &= \left[-f_y , \quad -f_x , \quad -f_z , \quad 0 , \quad 0 , \quad 0\right]^T,
     \end{split}
 \end{equation}
 
@@ -56,7 +55,7 @@
 \end{align*}
 
 
-Применим преобразование Фурье \eqref{eq:fourier_transform_2d} для (\ref{eq:separate}) по координатам $x$ и $z$
+Применяя преобразование Фурье \eqref{eq:fourier_transform_2d} для системы \eqref{eq:separate} по координатам $x$ и $z$, получим
 \begin{equation}
     \label{eq:FT_system}
     \partial_y \hat{T} = \hat{\mathbb{A}} \hat{T} + \hat{F},
@@ -65,8 +64,8 @@
 \begin{equation}
     \label{eq:FourierT}
     \begin{split}
-        \hat{T} &= \left[\hat{\sigma}_{yy}/k \quad \hat{\tau}_s/k \quad \hat{u}_y \quad \hat{u}_s \quad  \hat{\tau}_t/k \quad  \hat{u}_t \right]^T, \\
-        \hat{F} &= \left[-\hat{f}_y \; -\hat{f}_s \; 0 \; 0 \; -\hat{f}_t \; 0\right]^T,
+        \hat{T} &= \left[\hat{\sigma}_{yy}/k , \quad \hat{\tau}_s/k , \quad \hat{u}_y , \quad \hat{u}_s , \quad  \hat{\tau}_t/k , \quad  \hat{u}_t \right]^T, \\
+        \hat{F} &= \left[-\hat{f}_y , \quad -\hat{f}_s , \quad 0 , \quad 0 , \quad -\hat{f}_t , \quad 0\right]^T,
     \end{split}
 \end{equation}
 и оператор $\hat{\mathbb{A}}$
@@ -83,7 +82,7 @@
     \end{array}\right].
 \end{equation}
 
-Здесь вводятся обозначения
+Здесь введены обозначения
 \begin{equation}
     \label{eq:FT_special_variables}
     \begin{split}
@@ -121,8 +120,8 @@
 где используются обозначения
 \begin{equation}
     \label{eq:FourierSeparateT}
-    \hat{T}_s = \left[\hat{\sigma}_{yy}/k \quad \hat{\tau}_s/k \quad \hat{u}_y \quad \hat{u}_s \right]^T, \qquad 
-    \hat{T}_t = \left[ \hat{\tau}_t/k \quad  \hat{u}_t \right]^T.
+    \hat{T}_s = \left[\hat{\sigma}_{yy}/k, \quad \hat{\tau}_s/k, \quad \hat{u}_y, \quad \hat{u}_s \right]^T, \qquad 
+    \hat{T}_t = \left[ \hat{\tau}_t/k, \quad  \hat{u}_t \right]^T.
 \end{equation}
 
 Матрицы $Z_s$ и $Z_t$ имеют вид
@@ -206,16 +205,16 @@
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
+        \includegraphics[width=\textwidth]{DD_point.pdf}
         \caption{Условие точечного разрыва смещений}
         \label{fig:DD_point}
-        \includegraphics[width=\textwidth]{DD_point.pdf}
     \end{subfigure}
     \hfill 
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
+        \includegraphics[width=\textwidth]{DD_point2.pdf}
         \caption{Введение дополнительной границы}
         \label{fig:pseudointerface}
-        \includegraphics[width=\textwidth]{DD_point2.pdf}
     \end{subfigure}
     \caption{Введение псевдо-границы}
     \label{fig:Pseudointerface}
@@ -243,7 +242,7 @@
     \label{eq:coupled_t-system}
     A_t^i \hat{\tau}_t^{i-1} + C_t^i \hat{\tau}_t^{i} + B_t^i \hat{\tau}_t^{i+1} = D_t^i,
 \end{equation}
-для t-системы и 
+для $t$-системы и 
 \begin{equation}
     \label{eq:coupled_s-system}
     \textbf{A}_s^i \left[
@@ -263,7 +262,7 @@
         \end{array}\right]
     = \textbf{D}_s^i,
 \end{equation}
-для s-системы. Значения матриц в \eqref{eq:coupled_t-system} и \eqref{eq:coupled_s-system} приведены в приложении~\ref{app:coupled_systems}.
+для $s$-системы. Значения матриц в \eqref{eq:coupled_t-system} и \eqref{eq:coupled_s-system} приведены в Приложении~\ref{app:coupled_systems}.
 
 Решая \eqref{eq:coupled_t-system} и \eqref{eq:coupled_s-system}, находим спектральные коэффициенты для каждого слоя из \eqref{eq:As} и \eqref{eq:At}. Окончательно, используя закон Гука \eqref{eq:hooke_law} и \eqref{eq:fourier_solution}, получим
 \begin{multline}
