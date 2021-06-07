@@ -1,4 +1,26 @@
 \begin{frame}
+    \frametitle{Дифференциальный оператор}
+    \begin{equation*}
+        \mathbb{A} = 
+        \left[\begin{array}{cccccc}
+            0                      & -\partial_x & -\partial_z & 0 & 0 & 0 \\
+            -\frac{b}{a}\partial_x & 0           & 0 & 0 & \frac{b^2-a^2}{a}\partial_{xx} - \frac{f}{2}\partial_{zz} & \left( \frac{b^2-ab}{a} - \frac{f}{2} \right) \partial_{xz} \\
+            -\frac{b}{a}\partial_z & 0           & 0 & 0 & \left( \frac{b^2-ab}{a} - \frac{f}{2} \right) \partial_{xz} & \frac{b^2-a^2}{a}\partial_{zz} - \frac{f}{2}\partial_{xx} \\
+            \frac{1}{a}            & 0           & 0 & 0 & -\frac{b}{a}\partial_x & -\frac{b}{a}\partial_z \\
+            0                      & \frac{2}{f} & 0 & -\partial_x & 0 & 0 \\
+            0                      & 0           & \frac{2}{f} & -\partial_z & 0 & 0 
+        \end{array}\right],
+    \end{equation*}
+    
+    где используются константы
+    \begin{align*}
+        a   & = \lambda + 2G,                          & b   & = \lambda,                &     f & = 2G, \\
+        l_2 & = \frac{\lambda + 3G}{\lambda + G},      & l_4 & = \frac{2G^2}{\lambda+G}, &   l_5 & = \frac{2G(\lambda + 2G)}{\lambda + G}, \\
+        l_6 & = \frac{2G(2\lambda + 2G)}{\lambda + G}, & l_7 & = \frac{2\lambda G}{\lambda+G}
+    \end{align*}
+\end{frame}
+
+\begin{frame}
     \frametitle{Обозначения}
     \begin{equation}
         \label{eq:FT_special_variables}

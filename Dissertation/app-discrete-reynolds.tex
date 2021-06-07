@@ -1,0 +1,22 @@
+\chapter{Дискретизация уравнения Рейнольдса}
+\label{app:discrete-reynolds}
+
+Интегрируя уравнение Рейнольдса~\eqref{eq:reynolds_equation} по времени от $t-\Delta t$ до $t$, где $\Delta t$ --- шаг по времени, и элементу $\mathcal{A}_{i,j}$, получим дискретизацию по методу конечных объемов
+\begin{equation}
+    \label{eq:discrete-reynolds}
+    w_{i, j}(t) - w_{i, j}(t-\Delta t) = \Delta t[Ap]_{i, j} + \Delta t Q_{i, j} - \Delta \mathcal{L}_{i, j},
+\end{equation}
+где $\Delta t Q_{i, j}$ отвечает за закачку, $\Delta \mathcal{L}_{i, j}$ --- утечка жидкости в пласт с момента времени $t-\Delta t$ до $t$. $[Ap]_{i, j}$ --- это потоки жидкости через границу элемента $\mathcal{A}_{i,j}$, которые вычисляются как
+
+\begin{equation}
+    \begin{split}
+        [Ap]_{i, j} &= \frac{1}{\Delta x} \left[M_{i+\frac{1}{2},j} \frac{p_{i+1,j}-p_{i,j}}{\Delta x} + M_{i-\frac{1}{2},j} \frac{p_{i-1,j}-p_{i,j}}{\Delta x} \right] + \\
+        &= \frac{1}{\Delta y} \left[M_{i,j+\frac{1}{2}} \frac{p_{i,j+1}-p_{i,j}}{\Delta y} + M_{i,j+\frac{1}{2}} \frac{p_{i-1,j}-p_{i,j}}{\Delta y} \right],
+    \end{split}
+\end{equation}
+где соответствующие мобильности жидкости определяются как
+\begin{equation}
+    M_{i \pm \frac{1}{2},j} = \frac{w^3_{i \pm 1,j} + w^3_{i,j}}{2\mu'}.
+\end{equation}
+
+Задача численного моделирования раскрытия трещины ГРП состоит в решении системы уравнений \eqref{eq:discrete-reynolds} и \eqref{eq:discrete_elasticity}.
