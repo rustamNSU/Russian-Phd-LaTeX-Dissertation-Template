@@ -1,33 +1,14 @@
 \setbeamertemplate{title page}
 {
-    \ifnumequal{\value{logotitle}}{1}{
-        \IfFileExists{images/logo.pdf}{
-            \begin{minipage}[c]{0.15\textwidth}
-                \begin{flushleft}
-                    \usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
-                \end{flushleft}
-            \end{minipage}%
-            \hfill
-            \begin{minipage}[c]{0.8\linewidth}
-                \centering
-                \usebeamerfont{institute}\insertinstitute\par
-            \end{minipage}
-        }{
-            \centering
-            \usebeamerfont{institute}\insertinstitute\par
-        }
-    }{
-        \centering
-        \usebeamerfont{institute}\insertinstitute\par
-    }
     \centering
-    \vfill
     \usebeamerfont{subtitle}\insertsubtitle\par
     \bigskip
-    \usebeamerfont{title}\inserttitle\par
+    % \usebeamerfont{title}\inserttitle\par
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+        \usebeamerfont{title}\inserttitle\par    
+    \end{beamercolorbox}%
     \vfill
-    \usebeamerfont{author}\insertauthor\par
-    \vfill
+    % \usebeamerfont{author}\textbf{\insertauthor}\par
     \usebeamerfont{date}\insertdate\par
 }
 
@@ -35,8 +16,8 @@
 \title{\thesisTitle}
 \author{%
     \texorpdfstring{%
-        \emph{Выступающий:}~\thesisAuthorShort\\%
-        \emph{Руководитель:}~\supervisorRegaliaShort~\supervisorFioShort\\%
+        \thesisAuthorLastName~\thesisAuthorOtherNames%
+        % \emph{Руководитель:}~\supervisorRegaliaShort~\supervisorFioShort\\%
         %
     }{\thesisAuthor}%
 }
