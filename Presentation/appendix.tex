@@ -1,4 +1,56 @@
 \begin{frame}
+    \centering
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{static_accuracy.pdf}
+        \caption{\footnotesize{Трехслойная среда, модуль Юнга и коэффициент Пуассона в слоях равны 1, 10, 2 GPa и 0.1, 0.4, 0.2 соответственно.}}
+    \end{figure}
+
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta x, \text{м}$ & $E_{max}$ & $E_2$ \\
+        \hline
+        0.1                     & 0.129     & 0.059 \\
+        \hline
+        0.05                    & 0.096     & 0.028 \\
+        \hline
+        0.025 & --- & --- \\
+        \hline
+    \end{tabular}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \includegraphics[width=0.9\textwidth]{scheme-layered.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Численная постановка}
+    Дискретизация уравнений \eqref{eq:reynolds_equation} и \eqref{eq:elasticity_equation} осуществляется с помощью метода разрывных смещений
+    \begin{equation}
+        \label{eq:piecewiece_approximation}
+        \begin{split}
+            w(x,y,t) &= \sum\limits_{i,j} w_{i,j}(t) H_{i,j}(x,y), \\
+            p(x,y,t) &= \sum\limits_{i,j} p_{i,j}(t) H_{i,j}(x,y), \\
+        \end{split}
+    \end{equation}
+    где 
+    \begin{equation}
+        \label{eq:heaviside_function}
+        H_{i,j}(x,y) = \left\{
+            \begin{array}{ll}
+                1, & (x,y) \in \mathcal{A}_{i,j}, \\
+                0, & (x,y) \notin \mathcal{A}_{i,j}.
+            \end{array}\right.
+    \end{equation}
+    Путём явного интегрирования по элементу уравнение упругости \eqref{eq:elasticity_equation} сводится к
+    \begin{equation}
+        \label{eq:discrete_elasticity}
+        p_{i,j}(t) = {\sigma_h}_{i,j} + \sum\limits_{k,l} C_{i,j;k,l} w_{k,l}(t),
+    \end{equation}
+    где $C_{i,j;k,l}$ -- матрица упругости.
+\end{frame}
+
+\begin{frame}
     \frametitle{Дифференциальный оператор}
     \begin{equation*}
         \mathbb{A} = 
@@ -132,5 +184,18 @@
             \end{array}\right].\\
         \end{split}
     \end{equation*}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Верификация метода путем сравнения с известными литературными данными}
+
+    \begin{minipage}[t]{0.4\linewidth}
+        \includegraphics[width=\linewidth]{peirce-2layer.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.57\linewidth}
+        \includegraphics[width=\linewidth]{peirce-thin-layer.pdf}
+    \end{minipage}
 \end{frame}
 

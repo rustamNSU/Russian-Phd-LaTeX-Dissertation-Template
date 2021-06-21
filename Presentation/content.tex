@@ -1,14 +1,14 @@
 \section{Постановка задачи}
 
 \begin{frame}
-    \frametitle{Модель плоской трещины}
+    \frametitle{Схема плоской трещины}
     \centering
     \includegraphics[width=0.8\textwidth]{fracture_scheme.pdf}
 \end{frame}
 
 \subsection{Определяющие уравнения}
 \begin{frame}
-    \frametitle{Закон сохранения массы}
+    \frametitle{Модель плоской трещины}
     Уравнение Рейнольдса (закон сохранения массы)
     \begin{equation}
         \label{eq:reynolds_equation}
@@ -21,57 +21,34 @@
         p(x,y,t) = \sigma_h(y) + \int\limits_{\mathcal{A}(t)} G(x,y;x',y')w(x',y',t) \dif x' \dif y',
     \end{equation}
 
-    В случае изотропной среды
-    \begin{equation}
-        \label{eq:elasticity_kernel}
-        G(x,y;x',y') = - \frac{E'}{8\pi [(x\!-\!x')^2+(y\!-\!y')^2]^{3/2}}.
-    \end{equation}
-    $E' = E / (1-\nu^2)$, где $E$ -- модуль Юнга, $\nu$ -- коэффициент Пуассона.
+    Граничные условия на движущемся фронте
+    \begin{minipage}{0.49\textwidth}
+        \begin{equation*}
+            \lim_{s \to 0} \frac{w(s)}{s^1/2}=\frac{K'}{E'},
+        \end{equation*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+        \begin{equation*}
+            \lim_{s \to 0} \frac{w^3}{12\mu} \pd{p}{s}=0.
+        \end{equation*}
+    \end{minipage}
 \end{frame}
-
-\subsection{Численная постановка}
-\begin{frame}
-    \frametitle{Численная постановка}
-    Дискретизация уравнений \eqref{eq:reynolds_equation} и \eqref{eq:elasticity_equation} осуществляется с помощью метода разрывных смещений
-    \begin{equation}
-        \label{eq:piecewiece_approximation}
-        \begin{split}
-            w(x,y,t) &= \sum\limits_{i,j} w_{i,j}(t) H_{i,j}(x,y), \\
-            p(x,y,t) &= \sum\limits_{i,j} p_{i,j}(t) H_{i,j}(x,y), \\
-        \end{split}
-    \end{equation}
-    где 
-    \begin{equation}
-        \label{eq:heaviside_function}
-        H_{i,j}(x,y) = \left\{
-            \begin{array}{ll}
-                1, & (x,y) \in \mathcal{A}_{i,j}, \\
-                0, & (x,y) \notin \mathcal{A}_{i,j}.
-            \end{array}\right.
-    \end{equation}
-    Путём явного интегрирования по элементу уравнение упругости \eqref{eq:elasticity_equation} сводится к
-    \begin{equation}
-        \label{eq:discrete_elasticity}
-        p_{i,j}(t) = {\sigma_h}_{i,j} + \sum\limits_{k,l} C_{i,j;k,l} w_{k,l}(t),
-    \end{equation}
-    где $C_{i,j;k,l}$ -- матрица упругости.
-\end{frame}
-
 
 \section{Численное построение матрицы упругости}
 \begin{frame}
     \frametitle{Уравнения равновесия и закон Гука}
-    Определяющие уравнения упругой изотропной среды задаются формулами
+    Уравнения равновесия для упругой изотропной среды 
     \begin{equation}
         \label{eq:equilibrium}
-        \sigma_{ij,j} + f_j = 0,
+        \sigma_{ij,j} + f_i = 0,
     \end{equation}
+    закон Гука
     \begin{equation}		
         \sigma_{ij} = \lambda e_{kk}\delta_{ij} + 2G e_{ij},
         \label{eq:hooke_law}
     \end{equation}
     где $\lambda = \frac{E \nu}{(1+\nu)(1-2\nu)}$ и $ G = \frac{E}{2(1+\nu)} $.
-    Отделяя производные по $y$ от производных по $x, z$
     \begin{equation}
         \label{eq:separate}
         \partial_{y} T = \mathbb{A}T + F,
@@ -168,7 +145,7 @@
 \begin{frame}
     \frametitle{Спектральные (свободные) коэффициенты}
     Связь между спектральными коэффициентами и значениями смещений и напряжений на границе слоя
-    \begin{equation*}
+    \begin{equation}
         \left[
         \begin{array}{c}
         A^{j}_{1}(k) \\
@@ -194,9 +171,9 @@
         \hat{u}^{j}_{s}(y=y_j) 
         \end{array}
         \right],
-    \end{equation*}
+    \end{equation}
 
-    \begin{equation*}
+    \begin{equation}
         \left[
         \begin{array}{c}
             A^{j}_{5}(k) \\
@@ -216,7 +193,7 @@
         \hat{u}^{j}_{t}(y=y_j) 
         \end{array}
         \right].
-    \end{equation*}
+    \end{equation}
 \end{frame}
 
 \begin{frame}
@@ -247,15 +224,23 @@
         = \textbf{D}_s^i,
     \end{equation}
     для s-системы.
-\end{frame}
-
-\begin{frame}
-    \frametitle{}
     Ядро $G(x,y;x',y')$ интегрального соотношения~\eqref{eq:elasticity_equation} для слоистой среды
     \begin{equation}
         G(x,y;x',y') = G_\text{hom}(x,y;x',y') + G'(x,y;x',y'),
     \end{equation} 
-    где $G_\text{hom}(x,y;x',y')$ получается из \eqref{eq:elasticity_kernel} с учетом $E'=E'(y)$. Окончательно
+    где
+    \begin{equation}
+        \label{eq:elasticity_kernel}
+        G_\text{hom}(x,y;x',y') = - \frac{E'(y)}{8\pi [(x\!-\!x')^2+(y\!-\!y')^2]^{3/2}},
+    \end{equation}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Ядро $G(x,y;x',y')$ интегрального соотношения~\eqref{eq:elasticity_equation}}
+    \begin{equation}
+        G'(x,y;x',y') = \Delta \sigma_{zz}(x-x',y-y'),
+    \end{equation}
+    где $\sigma_{zz}(x,y)$ находится из \eqref{eq:fourier_sigmazz} путем применения обратного преобразования Фурье
     \begin{multline}
         \label{eq:fourier_sigmazz}
         \hat{\sigma}^j_{zz}(y)/k = f\frac{n^2}{k^2}e^{-ky}A^j_1(k)
@@ -267,19 +252,49 @@
     \end{multline}
 \end{frame}
 
+\begin{frame}
+    \centering
+    \includegraphics[width=0.9\textwidth]{scheme-layered.png}
+\end{frame}
+
 
 \section{Верификация и численные расчеты}
 
-\begin{frame}
-    \frametitle{Верификация метода путем сравнения с известными литературными данными}
+\begin{frame}[t]
+    \frametitle{Верификация}
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            Численная сходимость метода
+            \begin{enumerate}
+                \item $E_{max} = \frac{||w_h - \mathbf{w}||_{L_\infty}}{||\mathbf{w}||_{L_\infty}}$
+                \item $E_2 = \frac{||w_h - \mathbf{w}||_{L_2}}{||\mathbf{w}||_{L_2}}$
+            \end{enumerate}
+        \end{column}
+        \begin{column}{0.55\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{radial_fracture.pdf}
+        \end{column}
+    \end{columns}
+\end{frame}
 
-    \begin{minipage}[t]{0.4\linewidth}
-        \includegraphics[width=\linewidth]{peirce-2layer.png}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.57\linewidth}
-        \includegraphics[width=\linewidth]{peirce-thin-layer.pdf}
-    \end{minipage}
+\begin{frame}
+    \centering
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{static_accuracy.pdf}
+        \caption{\footnotesize{Трехслойная среда, модуль Юнга и коэффициент Пуассона в слоях равны 1, 10, 2 GPa и 0.1, 0.4, 0.2 соответственно.}}
+    \end{figure}
+
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $\Delta x, \text{м}$ & $E_{max}$ & $E_2$ \\
+        \hline
+        0.1                     & 0.129     & 0.059 \\
+        \hline
+        0.05                    & 0.096     & 0.028 \\
+        \hline
+        0.025 & --- & --- \\
+        \hline
+    \end{tabular}
 \end{frame}
 
 \begin{frame}
