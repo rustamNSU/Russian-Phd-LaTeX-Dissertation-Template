@@ -1,18 +1,18 @@
 \section{Постановка задачи}
 
 \begin{frame}
-    \frametitle{Схема плоской трещины}
+    \frametitle{Схема плоской трещины гидроразрыва пласта (ГРП)}
     \centering
     \includegraphics[width=0.8\textwidth]{fracture_scheme.pdf}
 \end{frame}
 
 \subsection{Определяющие уравнения}
 \begin{frame}
-    \frametitle{Модель плоской трещины}
+    \frametitle{Модель плоской трещины ГРП}
     Уравнение Рейнольдса (закон сохранения массы)
     \begin{equation}
         \label{eq:reynolds_equation}
-        \pd{w}{t} - \text{div} \left( -\frac{w^3}{12\mu} \bigtriangledown \!p \right) + \frac{2C_L}{\sqrt{t-t_0(x,\, y)}}  = Q(t) \delta(x,\,y),
+        \pd{w}{t} - \text{div} \left(\frac{w^3}{12\mu} \bigtriangledown \!p \right) + \frac{2C_L}{\sqrt{t-t_0(x,\, y)}}  = Q(t) \delta(x,\,y),
     \end{equation}
 
     Уравнение упругости
@@ -24,73 +24,54 @@
     Граничные условия на движущемся фронте
     \begin{minipage}{0.49\textwidth}
         \begin{equation*}
-            \lim_{s \to 0} \frac{w(s)}{s^1/2}=\frac{K'}{E'},
+            \lim_{s \to 0} \frac{w(s)}{s^{1/2}}=\frac{K'}{E'},
         \end{equation*}
     \end{minipage}
     \hfill
     \begin{minipage}{0.5\textwidth}
-        \begin{equation*}
+        \begin{equation}
             \lim_{s \to 0} \frac{w^3}{12\mu} \pd{p}{s}=0.
-        \end{equation*}
+        \end{equation}
     \end{minipage}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Постановка задачи}
+    В институте гидродинамики им. М. А. Лаврентьева СО РАН ранее был реализован симулятор ГРП Planar3D ILSA в предположении
+    \begin{equation}
+        \label{eq: heterogeneous_elasticity_equation}
+        p(x,y,t) = \sigma_h(y) - \frac{E'}{8\pi}\int\limits_{\mathcal{A}(t)} \frac{w(x',y',t)}{[(x\!-\!x')^2+(y\!-\!y')^2]^{3/2}} \dif x' \dif y'.
+    \end{equation}
+
+    Целью данной работы является 
+    \begin{itemize}
+        \item реализация метода построения численной матрицы жесткости для слоистой среды с неоднородностью по модулям упругости и внедрение его в модель Planar3D ILSA,
+        \item анализ влияния неоднородности модулей упругости на геометрию трещины ГРП,
+        \item сравнение влияния неоднородности сжимающих напряжений и модулей упругости слоев на геометрию финальной трещины ГРП,
+        \item анализ влияния тонких жестких пропластков на рост и раскрытие трещины ГРП.
+    \end{itemize}
 \end{frame}
 
 \section{Численное построение матрицы упругости}
 \begin{frame}
-    \frametitle{Уравнения равновесия и закон Гука}
-    Уравнения равновесия для упругой изотропной среды 
+    \frametitle{Численное построение матрицы жесткости}
+    Метод численного построения был предложен Энтони Пирсом \footfullcite{Peirce2001TheSF}.
+    Для каждого слоя записываем уравнение равновесия для упругой изотропной среды
     \begin{equation}
         \label{eq:equilibrium}
         \sigma_{ij,j} + f_i = 0,
     \end{equation}
     закон Гука
     \begin{equation}		
-        \sigma_{ij} = \lambda e_{kk}\delta_{ij} + 2G e_{ij},
+        \sigma_{ij} = \lambda e_{kk}\delta_{ij} + 2G e_{ij}.
         \label{eq:hooke_law}
     \end{equation}
-    где $\lambda = \frac{E \nu}{(1+\nu)(1-2\nu)}$ и $ G = \frac{E}{2(1+\nu)} $.
+    На границе раздела слоев выполняется условие непрерывности компонент вектора смещений и нормальной нагрузки. Тогда ядро в интегральном соотношении~\eqref{eq:elasticity_equation}
     \begin{equation}
-        \label{eq:separate}
-        \partial_{y} T = \mathbb{A}T + F,
-    \end{equation}
-    где
-    \begin{equation}
-        \label{eq:T}
         \begin{split}
-            T &= \left[\sigma_{yy} , \quad \sigma_{xy} , \quad \sigma_{yz} , \quad u_{y} , \quad u_{x} , \quad u_{z}\right]^T, \\
-            F &= \left[-f_y , \quad -f_x , \quad -f_z , \quad 0 , \quad 0 , \quad 0\right]^T,
+            G(x,y,x',y') & = \sigma_{zz}(x,y), \\
+            \left[u_{z} \right]_{(x',y')} & = \left.u_{z-0} - u_{z+0}\right|_{(x',y')} = 1.
         \end{split}
-    \end{equation}
-\end{frame}
-
-
-\begin{frame}
-    \frametitle{Постановка в Фурье образе}
-    Применим двумерное преобразование Фурье по координатам $x$ и $z$
-    \begin{equation}
-        \label{eq:FT_system}
-        \partial_y \hat{T} = \hat{\mathbb{A}} \hat{T} + \hat{F},
-    \end{equation}
-    где
-    \begin{equation}
-        \label{eq:FourierT}
-        \begin{split}
-            \hat{T} &= \left[\hat{\sigma}_{yy}/k \quad \hat{\tau}_s/k \quad \hat{u}_y \quad \hat{u}_s \quad  \hat{\tau}_t/k \quad  \hat{u}_t \right]^T, \\
-            \hat{F} &= \left[-\hat{f}_y \; -\hat{f}_s \; 0 \; 0 \; -\hat{f}_t \; 0\right]^T,
-        \end{split}
-    \end{equation}
-
-    \begin{equation}
-        \label{eq:FourierA}
-        \hat{\mathbb{A}} = 
-        \left[\begin{array}{cccccc}
-            0 & -k & 0 & 0 & 0 & 0 \\
-            \frac{b}{a}k & 0 & 0 & -\frac{b^2-a^2}{a}k^2 & 0 & 0 \\
-            \frac{1}{a} & 0 & 0 & -\frac{b}{a}k & 0 & 0 \\
-            0 & \frac{2}{f} & k & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & \frac{f}{2}k \\
-            0 & 0 & 0 & 0 & \frac{2}{f} & 0 
-        \end{array}\right].
     \end{equation}
 \end{frame}
 
@@ -105,151 +86,56 @@
         \footnotesize{Введение дополнительной границы}
         \includegraphics[width=\linewidth]{DD_point2.pdf}
     \end{minipage}
-    Тогда $u_{z-0} - u_{z+0} = \Delta u$ может быть представлена в виде скачка смещения и напряжений на границе раздела слоев $\left[ \hat{T} \right] = \hat{T}(y-0) - \hat{T}(y+0)$.
+    Тогда $u_{z-0} - u_{z+0} = \Delta u$ может быть представлена в виде скачка смещений и напряжений на псевдо-границе $\left[ T \right] = T(y-0) - T(y+0)$, где $T = \left[\sigma_{yy} , \quad \sigma_{xy} , \quad \sigma_{yz} , \quad u_{y} , \quad u_{x} , \quad u_{z}\right]^T$.
 \end{frame}
 
 \begin{frame}
-    \frametitle{Спектральные (свободные) коэффициенты}
-    Система \eqref{eq:FT_system} является ОДУ и решение зависит от 6 свободных коэффициентов
+    \frametitle{Постановка в Фурье-образе}
+    Записываем определяющие уравнения в виде
+    \begin{equation}
+        \label{eq:separate}
+        \partial_{y} T = \mathbb{A}T,
+    \end{equation}
+
+    и применяя двумерное преобразование Фурье по координатам $x$ и $z$, получим
+    \begin{equation}
+        \label{eq:FT_system}
+        \partial_y \hat{T} = \hat{\mathbb{A}} \hat{T}.
+    \end{equation}
+    Система \eqref{eq:FT_system} является ОДУ и решение зависит от 6 спектральных коэффициентов $A(m,n)$ (константы интегрирования)
     \begin{equation}
         \label{eq:fourier_solution}
-        \left[
-        \begin{array}{c}
-            \hat{T}_s \\
-            \hat{T}_t 
-        \end{array}
-        \right]
-        =
-        \left[
-        \begin{array}{cc}
-            Z_s & 0 \\
-            0 & Z_t 
-        \end{array}
-        \right]
-        \left[
-        \begin{array}{c}
-            A_s \\
-            A_t 
-        \end{array}
-        \right]
+        \hat{T} = \mathbb{Z}A.
     \end{equation}
-    
-    где используются обозначения
-    \begin{equation}
-        \label{eq:FourierSeparateT}
-        \hat{T}_s = \left[\hat{\sigma}_{yy}/k \quad \hat{\tau}_s/k \quad \hat{u}_y \quad \hat{u}_s \right]^T, \qquad 
-        \hat{T}_t = \left[ \hat{\tau}_t/k \quad  \hat{u}_t \right]^T.
-    \end{equation}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Спектральные (свободные) коэффициенты}
     Связь между спектральными коэффициентами и значениями смещений и напряжений на границе слоя
     \begin{equation}
-        \left[
-        \begin{array}{c}
-        A^{j}_{1}(k) \\
-        A^{j}_{2}(k)\\
-        A^{j}_{3}(k) \\
-        A^{j}_{4}(k)
-        \end{array}
-        \right]
-        = \frac{1}{2l^j_5}
-        \left[
-        \begin{array}{cccc}
-            -l^j_2 & 0 & l^j_5 & -l^j_4 \\
-            -1 & 1 & f^j & -f^j \\
-            l^j_2 & 0 & l^j_5 & l^j_4 \\
-            -1 & -1 & -f^j & -f^j
-        \end{array}
-        \right]
-        \left[
-        \begin{array}{c}
-        \hat{\sigma}^{j}_{yy}(y=y_j)/k \\
-        \hat{\tau}^{j}_{s}(y=y_j)/k\\
-        \hat{u}^{j}_{y}(y=y_j) \\
-        \hat{u}^{j}_{s}(y=y_j) 
-        \end{array}
-        \right],
-    \end{equation}
-
-    \begin{equation}
-        \left[
-        \begin{array}{c}
-            A^{j}_{5}(k) \\
-            A^{j}_{6}(k)
-        \end{array}
-        \right]
-        = \frac{1}{2l^j_5}
-        \left[
-        \begin{array}{cc}
-            -\frac{1}{f^j} & \frac{1}{2} \\
-            \frac{1}{f^j} & \frac{1}{2}
-        \end{array}
-        \right]
-        \left[
-        \begin{array}{c}
-        \hat{\tau}^{j}_{t}(y=y_j)/k\\
-        \hat{u}^{j}_{t}(y=y_j) 
-        \end{array}
-        \right].
+        A(m,n) = \mathbb{Z}^{-1}\hat{T}(y=y_i).
     \end{equation}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Связанные системы для граничных значений}
+    \frametitle{Связанная система уравнений для граничных значений}
     Из этих соотношений можно составить уравнения для определения компонент вектора смещения и напряжений на границе раздела слоев
     \begin{equation}
-        \label{eq:coupled_t-system}
-        A_t^i \hat{\tau}_t^{i-1} + C_t^i \hat{\tau}_t^{i} + B_t^i \hat{\tau}_t^{i+1} = D_t^i,
+        \label{eq:coupled-system}
+        \textbf{A}^i \hat{T}_{y=y_{i-1}} +
+        \textbf{C}^i \hat{T}_{y=y_{i}} + 
+        \textbf{B}^i \hat{T}_{y=y_{i+1}}
+        = \textbf{D}^i,
     \end{equation}
-    для t-системы и 
-    \begin{equation}
-        \label{eq:coupled_s-system}
-        \textbf{A}_s^i \left[
-            \begin{array}{c}
-                \hat{\sigma}_{yy}^{i-1} \\
-                \hat{\tau}_s^{i-1}
-            \end{array}\right] +
-        \textbf{C}_s^i \left[
-            \begin{array}{c}
-                \hat{\sigma}_{yy}^{i} \\
-                \hat{\tau}_s^{i}
-            \end{array}\right] + 
-        \textbf{B}_s^i \left[
-            \begin{array}{c}
-                \hat{\sigma}_{yy}^{i+1} \\
-                \hat{\tau}_s^{i+1}
-            \end{array}\right]
-        = \textbf{D}_s^i,
-    \end{equation}
-    для s-системы.
     Ядро $G(x,y;x',y')$ интегрального соотношения~\eqref{eq:elasticity_equation} для слоистой среды
     \begin{equation}
         G(x,y;x',y') = G_\text{hom}(x,y;x',y') + G'(x,y;x',y'),
     \end{equation} 
     где
     \begin{equation}
-        \label{eq:elasticity_kernel}
-        G_\text{hom}(x,y;x',y') = - \frac{E'(y)}{8\pi [(x\!-\!x')^2+(y\!-\!y')^2]^{3/2}},
+        \begin{split}
+            G_\text{hom}(x,y;x',y') & = - \frac{E'(y)}{8\pi [(x\!-\!x')^2+(y\!-\!y')^2]^{3/2}},\\
+            G'(x,y;x',y') & = \Delta \sigma_{zz}(x,y),\\
+            \left[u_{z} \right]_{(x',y')} & = \left.u_{z-0} - u_{z+0}\right|_{(x',y')} = 1.
+        \end{split}
     \end{equation}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Ядро $G(x,y;x',y')$ интегрального соотношения~\eqref{eq:elasticity_equation}}
-    \begin{equation}
-        G'(x,y;x',y') = \Delta \sigma_{zz}(x-x',y-y'),
-    \end{equation}
-    где $\sigma_{zz}(x,y)$ находится из \eqref{eq:fourier_sigmazz} путем применения обратного преобразования Фурье
-    \begin{multline}
-        \label{eq:fourier_sigmazz}
-        \hat{\sigma}^j_{zz}(y)/k = f\frac{n^2}{k^2}e^{-ky}A^j_1(k)
-        - \left(l_6\frac{n^2}{k^2}+l_7\frac{m^2}{k^2}-f\frac{n^2}{k^2}ky \right)e^{-ky}A^j_2(k) - \\
-        - f\frac{n^2}{k^2}e^{ky}A^j_3(k)
-        - \left(l_6\frac{n^2}{k^2}+l_7\frac{m^2}{k^2}+f\frac{n^2}{k^2}ky \right)e^{ky}A^j_4(k) - \\
-        - f\frac{mn}{k^2}e^{-ky}A^j_5(k)
-        - f\frac{mn}{k^2}e^{ky}A^j_6(k).
-    \end{multline}
+    где $\sigma_{zz}(x,y)$ находится из $\hat{\sigma}_{zz}(m,n)$ путем применения обратного дискретного преобразования Фурье.
 \end{frame}
 
 \begin{frame}
@@ -266,8 +152,8 @@
         \begin{column}{0.4\textwidth}
             Численная сходимость метода
             \begin{enumerate}
-                \item $E_{max} = \frac{||w_h - \mathbf{w}||_{L_\infty}}{||\mathbf{w}||_{L_\infty}}$
-                \item $E_2 = \frac{||w_h - \mathbf{w}||_{L_2}}{||\mathbf{w}||_{L_2}}$
+                \item $E_{max} = \frac{||\mathbf{w}_h - \mathbf{w}||_{L_\infty}}{||\mathbf{w}||_{L_\infty}}$
+                \item $E_2 = \frac{||\mathbf{w}_h - \mathbf{w}||_{L_2}}{||\mathbf{w}||_{L_2}}$
             \end{enumerate}
         \end{column}
         \begin{column}{0.55\textwidth}

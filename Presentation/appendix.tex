@@ -73,6 +73,35 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Постановка в Фурье образе}
+    Применим двумерное преобразование Фурье по координатам $x$ и $z$
+    \begin{equation}
+        \partial_y \hat{T} = \hat{\mathbb{A}} \hat{T} + \hat{F},
+    \end{equation}
+    где
+    \begin{equation}
+        \label{eq:FourierT}
+        \begin{split}
+            \hat{T} &= \left[\hat{\sigma}_{yy}/k \quad \hat{\tau}_s/k \quad \hat{u}_y \quad \hat{u}_s \quad  \hat{\tau}_t/k \quad  \hat{u}_t \right]^T, \\
+            \hat{F} &= \left[-\hat{f}_y \; -\hat{f}_s \; 0 \; 0 \; -\hat{f}_t \; 0\right]^T,
+        \end{split}
+    \end{equation}
+
+    \begin{equation}
+        \label{eq:FourierA}
+        \hat{\mathbb{A}} = 
+        \left[\begin{array}{cccccc}
+            0 & -k & 0 & 0 & 0 & 0 \\
+            \frac{b}{a}k & 0 & 0 & -\frac{b^2-a^2}{a}k^2 & 0 & 0 \\
+            \frac{1}{a} & 0 & 0 & -\frac{b}{a}k & 0 & 0 \\
+            0 & \frac{2}{f} & k & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & \frac{f}{2}k \\
+            0 & 0 & 0 & 0 & \frac{2}{f} & 0 
+        \end{array}\right].
+    \end{equation}
+\end{frame}
+
+\begin{frame}
     \frametitle{Обозначения}
     \begin{equation}
         \label{eq:FT_special_variables}
@@ -123,6 +152,45 @@
             0 \\ 0 \\ 0 \\ 0 \\ \Delta u(a-b) \\ 0 
         \end{array} \right].
     \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Связанные системы для граничных значений}
+    Из этих соотношений можно составить уравнения для определения компонент вектора смещения и напряжений на границе раздела слоев
+    \begin{equation}
+        \label{eq:coupled_t-system}
+        A_t^i \hat{\tau}_t^{i-1} + C_t^i \hat{\tau}_t^{i} + B_t^i \hat{\tau}_t^{i+1} = D_t^i,
+    \end{equation}
+    для t-системы и 
+    \begin{equation}
+        \label{eq:coupled_s-system}
+        \textbf{A}_s^i \left[
+            \begin{array}{c}
+                \hat{\sigma}_{yy}^{i-1} \\
+                \hat{\tau}_s^{i-1}
+            \end{array}\right] +
+        \textbf{C}_s^i \left[
+            \begin{array}{c}
+                \hat{\sigma}_{yy}^{i} \\
+                \hat{\tau}_s^{i}
+            \end{array}\right] + 
+        \textbf{B}_s^i \left[
+            \begin{array}{c}
+                \hat{\sigma}_{yy}^{i+1} \\
+                \hat{\tau}_s^{i+1}
+            \end{array}\right]
+        = \textbf{D}_s^i,
+    \end{equation}
+    для s-системы.
+    Ядро $G(x,y;x',y')$ интегрального соотношения~\eqref{eq:elasticity_equation} для слоистой среды
+    \begin{equation}
+        G(x,y;x',y') = G_\text{hom}(x,y;x',y') + G'(x,y;x',y'),
+    \end{equation} 
+    где
+    \begin{equation}
+        \label{eq:elasticity_kernel}
+        G_\text{hom}(x,y;x',y') = - \frac{E'(y)}{8\pi [(x\!-\!x')^2+(y\!-\!y')^2]^{3/2}},
+    \end{equation}
 \end{frame}
 
 \begin{frame}
